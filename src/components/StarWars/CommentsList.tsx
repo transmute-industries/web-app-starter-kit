@@ -1,6 +1,6 @@
 import './CommentsList.css';
 import * as React from 'react';
-import {CommentState} from '../types/index';
+import {CommentState} from '../../types/index';
 
 interface Props {
   comments: CommentState[];

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {UserState, RatingState} from '../types/index';
+import {UserState, RatingState} from '../../types/index';
 import {UserSelector} from './UserSelector';
 import {CommentEditor} from './CommentEditor';
 import {RatingEditor} from './RatingEditor';

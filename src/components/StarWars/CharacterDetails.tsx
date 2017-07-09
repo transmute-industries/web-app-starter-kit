@@ -1,6 +1,6 @@
 import './CharacterDetails.css';
 import * as React from 'react';
-import {CharacterState, UserState, CommentState, RatingsState} from '../types/index';
+import {CharacterState, UserState, CommentState, RatingsState} from '../../types/index';
 import {Editor} from './Editor';
 import {CommentsList} from './CommentsList';
 

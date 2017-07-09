@@ -44,3 +44,20 @@
     margin-right: auto;
     width: 200px;*/
 }
+
+.btn-c {
+     padding: 16px;
+}
+
+.material-btn{
+    display: inline-block;
+    padding: 16px;
+}
+
+.bootstrap-btn{
+    display: inline-block;
+    padding: 16px;
+    cursor: pointer;
+}
+
+

@@ -1,6 +1,6 @@
 import './Character.css';
 import * as React from 'react';
-import {CharacterState} from '../types/index';
+import {CharacterState} from '../../types/index';
 
 interface ExtendedCharacterState extends CharacterState {
   key?: number;

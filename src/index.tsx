@@ -21,9 +21,9 @@ injectTapEventPlugin();
 
 // let App:any = AppConnected;
 import HomePage from './components/Home/HomePage';
-import StarWarsPage from './components/StarWarsPage';
-import MaterialPage from './components/MaterialPage';
-import BootstrapPage from './components/BootstrapPage';
+import StarWarsPage from './components/StarWars/StarWarsPage';
+import MaterialPage from './components/Material/MaterialPage';
+import BootstrapPage from './components/Bootstrap/BootstrapPage';
 
 ReactDOM.render(
   <Provider store={store}>

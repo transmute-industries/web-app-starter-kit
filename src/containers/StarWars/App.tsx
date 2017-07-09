@@ -3,9 +3,9 @@ import * as React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect, Dispatch} from 'react-redux';
 
-import {Characters} from '../../components/Characters';
-import {CharacterDetails} from '../../components/CharacterDetails';
-import {Search} from '../../components/Search';
+import {Characters} from '../../components/StarWars/Characters';
+import {CharacterDetails} from '../../components/StarWars/CharacterDetails';
+import {Search} from '../../components/StarWars/Search';
 
 // Actions
 import {loadAllCharacters, searchCharacters} from '../../actions/characters';

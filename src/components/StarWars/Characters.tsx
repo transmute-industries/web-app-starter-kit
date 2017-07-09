@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Character} from './Character';
-import {CharacterState} from '../types/index';
+import {CharacterState} from '../../types/index';
 
 interface Props {
   characters: CharacterState[];

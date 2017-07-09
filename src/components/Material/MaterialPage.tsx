@@ -5,14 +5,17 @@ import { MuiThemeProvider, lightBaseTheme } from 'material-ui/styles';
 
 const lightMuiTheme = getMuiTheme(lightBaseTheme);
 
-import RaisedButton from 'material-ui/RaisedButton';
+
+import './MaterialPage.css';
+
+import UPortRegister  from './UPortRegister/UPortRegister'
 
 export default class MaterialPage extends React.Component<any, any> {
   render() {
     return (
-      <div>
+      <div className='material-demo'>
         <MuiThemeProvider muiTheme={lightMuiTheme}>
-          <RaisedButton label="Default" />
+          <UPortRegister />
         </MuiThemeProvider>
       </div>
     );

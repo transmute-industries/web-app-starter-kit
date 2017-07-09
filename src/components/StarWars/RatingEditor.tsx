@@ -1,7 +1,7 @@
 import './RatingEditor.css';
 import * as classNames from 'classnames';
 import * as React from 'react';
-import {RatingState} from '../types/index';
+import {RatingState} from '../../types/index';
 
 interface Props {
   rating?: RatingState;

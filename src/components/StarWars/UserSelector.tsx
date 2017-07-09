@@ -1,6 +1,6 @@
 import './UserSelector.css';
 import * as React from 'react';
-import {UserState} from '../types/index';
+import {UserState} from '../../types/index';
 
 interface Props {
   users: UserState[];
