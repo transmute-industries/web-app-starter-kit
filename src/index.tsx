@@ -20,6 +20,7 @@ injectTapEventPlugin();
 // store.dispatch(push('/foo'))
 
 // let App:any = AppConnected;
+import HomePage from './components/Home/HomePage';
 import StarWarsPage from './components/StarWarsPage';
 import MaterialPage from './components/MaterialPage';
 import BootstrapPage from './components/BootstrapPage';
@@ -28,7 +29,8 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div>
-        <Route exact={true} path="/" component={StarWarsPage} />
+        <Route exact={true} path="/" component={HomePage} />
+        <Route path="/starwars" component={StarWarsPage} />
         <Route path="/material" component={MaterialPage} />
         <Route path="/bootstrap" component={BootstrapPage} />
       </div>

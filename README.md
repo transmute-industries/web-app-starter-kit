@@ -1,14 +1,16 @@
-# react-redux-typescript
+# Ethereum dApp Starter Kit
 
-[![Build Status](https://travis-ci.org/OR13/RRT.svg?branch=master)](https://travis-ci.org/OR13/RRT)
+[![Build Status](https://travis-ci.org/transmute-industries/web-app-starter-kit.svg?branch=master)](https://travis-ci.org/transmute-industries/web-app-starter-kit)
 
-[![Coverage Status](https://coveralls.io/repos/github/OR13/RRT/badge.svg?branch=master)](https://coveralls.io/github/OR13/RRT?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/transmute-industries/web-app-starter-kit/badge.svg?branch=master)](https://coveralls.io/github/transmute-industries/web-app-starter-kit?branch=master)
 
 To start run `npm i && npm start`.
 
 #### Features
-
+- Material Design & Bootstrap
+- TypeScript, React & Redux
 - Redux DevTools
+- Transmute Framework
 
 Based on:
-- [https://github.com/dimadesu/react-redux-typescript]
+- [https://github.com/OR13/RRT]
