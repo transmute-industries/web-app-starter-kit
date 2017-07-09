@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  /*background-color: black;*/
+}
+
+h3 {
+  /*border-top: 1px solid black;*/
+  padding-top: 15px;
+}

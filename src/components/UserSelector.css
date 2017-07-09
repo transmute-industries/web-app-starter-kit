@@ -1,0 +1,11 @@
+.user {
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px 10px;
+  margin-left: 10px;
+  background-color: black;
+  border-radius: 5px;
+  color: white;
+  font-size: 70%;
+  font-weight: bold;
+}
