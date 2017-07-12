@@ -2,7 +2,7 @@
   "name": "web-app-starter-kit",
   "version": "0.0.0",
   "private": true,
-  "homepage": "https://transmute-industries.github.io/web-app-starter-kit",
+  "homepage": "https://transmute-industries.github.io/web-app-starter-kit/",
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
     "classnames": "^2.2.5",
@@ -44,7 +44,7 @@
   },
   "scripts": {
     "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
+    "build": "react-scripts-ts build && cp build/index.html build/404.html",
     "test": "react-scripts-ts test --env=jsdom --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "eject": "react-scripts-ts eject",
     "predeploy": "npm run build",

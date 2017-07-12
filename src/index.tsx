@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { store, history } from './store/store';
 
 import { ConnectedRouter, } from 'react-router-redux';
-import { Route } from 'react-router';
+import { Route, Redirect } from 'react-router';
 
 import * as injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -19,6 +19,8 @@ injectTapEventPlugin();
 // Now you can dispatch navigation actions from anywhere!
 // store.dispatch(push('/foo'))
 
+console.log('Transmute Industries loaded...')
+
 // let App:any = AppConnected;
 import HomePage from './components/Home/HomePage';
 import StarWarsPage from './components/StarWars/StarWarsPage';
@@ -29,10 +31,11 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div>
-        <Route exact={true} path="/" component={HomePage} />
-        <Route path="/starwars" component={StarWarsPage} />
-        <Route path="/material" component={MaterialPage} />
-        <Route path="/bootstrap" component={BootstrapPage} />
+        <Route exact={true} path="/web-app-starter-kit/" component={HomePage} />
+        <Route path="/web-app-starter-kit/starwars" component={StarWarsPage} />
+        <Route path="/web-app-starter-kit/material" component={MaterialPage} />
+        <Route path="/web-app-starter-kit/bootstrap" component={BootstrapPage} />
+        <Redirect from='*' to='/web-app-starter-kit/' />
       </div>
     </ConnectedRouter>
   </Provider>,

@@ -36,7 +36,7 @@ export default class UPortRegister extends React.Component<any, any> {
             <div className='bs-register'>
                 <Card block className="text-center">
                     <div className='bs-av-c'>
-                        <img src="/logo-v-c.png" width={300} />
+                        <img src="/web-app-starter-kit/logo-color.png" width={300} />
                     </div>
                     <div>
                     <Button style={{ cursor: 'pointer' }} color="info" onClick={() => {

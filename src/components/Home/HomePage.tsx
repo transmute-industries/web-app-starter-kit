@@ -28,7 +28,7 @@ export default class HomePage extends React.Component<any, any> {
         return (
             <Particle>
                 <div className='logo-c'>
-                    <img className='logo' src='/logo-v.png' />
+                    <img className='logo' src='/web-app-starter-kit/logo-white.png' />
                 </div>
                 <div className='cta-c'>
                     <div className='cta'>
@@ -37,14 +37,14 @@ export default class HomePage extends React.Component<any, any> {
                             <div className='bootstrap-btn'>
                                 <Button style={{ cursor: 'pointer' }} color='info'
                                     onClick={() => {
-                                        this.launchDemo('/bootstrap');
+                                        this.launchDemo('/web-app-starter-kit/bootstrap');
                                     }}
                                 >Bootstrap</Button>
                             </div>
                             <div className='material-btn'>
                                 <MuiThemeProvider muiTheme={lightMuiTheme}>
                                     <RaisedButton secondary label="Material" onTouchTap={() => {
-                                        this.launchDemo('/material');
+                                        this.launchDemo('/web-app-starter-kit/material');
                                     }} />
                                 </MuiThemeProvider>
                             </div>

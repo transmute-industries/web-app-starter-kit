@@ -33,7 +33,7 @@ export default class UPortRegister extends React.Component<any, any> {
         return (
             <Paper zDepth={4} className='md-register' >
                 <div className='md-av-c'>
-                    <img src="/logo-v-c.png" width={300} />
+                    <img src="/web-app-starter-kit/logo-color.png" width={300} />
                 </div>
                 <RaisedButton label="Login" secondary onTouchTap={() => {
                     this.login();

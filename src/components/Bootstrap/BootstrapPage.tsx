@@ -9,6 +9,7 @@ export default class BootstrapPage extends React.Component<any, any> {
   render() {
     return (
       <div className='bootstrap-demo'>
+    
         <UPortRegister />
       </div>
     );
