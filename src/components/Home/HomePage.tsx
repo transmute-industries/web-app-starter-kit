@@ -18,6 +18,7 @@ import { push } from 'react-router-redux'
 
 import { store } from '../../store/store';
 
+const logo = require('../../images/logo-white.png')
 
 export default class HomePage extends React.Component<any, any> {
     launchDemo(path: string) {
@@ -28,7 +29,7 @@ export default class HomePage extends React.Component<any, any> {
         return (
             <Particle>
                 <div className='logo-c'>
-                    <img className='logo' src='/web-app-starter-kit/logo-white.png' />
+                    <img className='logo' src={logo} />
                 </div>
                 <div className='cta-c'>
                     <div className='cta'>

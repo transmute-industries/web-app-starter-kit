@@ -19,7 +19,7 @@ injectTapEventPlugin();
 // Now you can dispatch navigation actions from anywhere!
 // store.dispatch(push('/foo'))
 
-console.log('Transmute Industries loaded...')
+console.log('🦄  Transmute  🦄')
 
 // let App:any = AppConnected;
 import HomePage from './components/Home/HomePage';

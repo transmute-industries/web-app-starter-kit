@@ -16,6 +16,9 @@ import './UPortRegister.css';
 import { Card, Button } from 'reactstrap';
 
 
+const logo = require('../../../images/logo-color.png')
+
+
 export default class UPortRegister extends React.Component<any, any> {
 
     login() {
@@ -36,7 +39,7 @@ export default class UPortRegister extends React.Component<any, any> {
             <div className='bs-register'>
                 <Card block className="text-center">
                     <div className='bs-av-c'>
-                        <img src="/web-app-starter-kit/logo-color.png" width={300} />
+                        <img src={logo} width={300} />
                     </div>
                     <div>
                     <Button style={{ cursor: 'pointer' }} color="info" onClick={() => {

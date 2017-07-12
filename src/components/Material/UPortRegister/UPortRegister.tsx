@@ -14,6 +14,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import './UPortRegister.css';
 import Paper from 'material-ui/Paper';
 
+
+const logo = require('../../../images/logo-color.png')
+
 export default class UPortRegister extends React.Component<any, any> {
 
     login() {
@@ -33,7 +36,7 @@ export default class UPortRegister extends React.Component<any, any> {
         return (
             <Paper zDepth={4} className='md-register' >
                 <div className='md-av-c'>
-                    <img src="/web-app-starter-kit/logo-color.png" width={300} />
+                    <img src={logo} width={300} />
                 </div>
                 <RaisedButton label="Login" secondary onTouchTap={() => {
                     this.login();
