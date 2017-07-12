@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { store, history } from './store/store';
 
 import { ConnectedRouter, } from 'react-router-redux';
-import { Route, Redirect } from 'react-router';
+import { Route } from 'react-router';
 
 import * as injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -27,6 +27,9 @@ import StarWarsPage from './components/StarWars/StarWarsPage';
 import MaterialPage from './components/Material/MaterialPage';
 import BootstrapPage from './components/Bootstrap/BootstrapPage';
 
+
+import DemoPage from './components/Material/Demo/Demo';
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
@@ -35,7 +38,8 @@ ReactDOM.render(
         <Route path="/web-app-starter-kit/starwars" component={StarWarsPage} />
         <Route path="/web-app-starter-kit/material" component={MaterialPage} />
         <Route path="/web-app-starter-kit/bootstrap" component={BootstrapPage} />
-        <Redirect from='*' to='/web-app-starter-kit/' />
+        <Route path="/web-app-starter-kit/demo" component={DemoPage} />
+        {/* <Redirect from='*' to='/web-app-starter-kit/' /> */}
       </div>
     </ConnectedRouter>
   </Provider>,

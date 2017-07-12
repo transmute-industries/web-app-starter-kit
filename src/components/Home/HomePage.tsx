@@ -12,7 +12,7 @@ const lightMuiTheme = getMuiTheme(lightBaseTheme);
 
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { Button } from 'reactstrap';
+// import { Button } from 'reactstrap';
 
 import { push } from 'react-router-redux'
 
@@ -35,17 +35,17 @@ export default class HomePage extends React.Component<any, any> {
                     <div className='cta'>
                         <h4>Ethereum dApp</h4>
                         <div className='btn-c'>
-                            <div className='bootstrap-btn'>
+                            {/* <div className='bootstrap-btn'>
                                 <Button style={{ cursor: 'pointer' }} color='info'
                                     onClick={() => {
                                         this.launchDemo('/web-app-starter-kit/bootstrap');
                                     }}
                                 >Bootstrap</Button>
-                            </div>
+                            </div> */}
                             <div className='material-btn'>
                                 <MuiThemeProvider muiTheme={lightMuiTheme}>
-                                    <RaisedButton secondary label="Material" onTouchTap={() => {
-                                        this.launchDemo('/web-app-starter-kit/material');
+                                    <RaisedButton secondary label="Demo" onTouchTap={() => {
+                                        this.launchDemo('/web-app-starter-kit/demo');
                                     }} />
                                 </MuiThemeProvider>
                             </div>
