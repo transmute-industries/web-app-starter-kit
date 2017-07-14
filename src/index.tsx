@@ -28,7 +28,12 @@ import MaterialPage from './components/Material/MaterialPage';
 import BootstrapPage from './components/Bootstrap/BootstrapPage';
 
 
-import DemoPage from './components/Material/Demo/Demo';
+import UnsafeFactoryDemo from './components/Material/Demo/UnsafeFactory/UnsafeFactoryDemo';
+
+import Web3Settings from './components/Material/Web3/Web3Settings';
+
+import { getAccounts} from './actions/transmute'
+store.dispatch(getAccounts())
 
 ReactDOM.render(
   <Provider store={store}>
@@ -38,7 +43,8 @@ ReactDOM.render(
         <Route path="/web-app-starter-kit/starwars" component={StarWarsPage} />
         <Route path="/web-app-starter-kit/material" component={MaterialPage} />
         <Route path="/web-app-starter-kit/bootstrap" component={BootstrapPage} />
-        <Route path="/web-app-starter-kit/demo" component={DemoPage} />
+        <Route path="/web-app-starter-kit/factory" component={UnsafeFactoryDemo} />
+        <Route path="/web-app-starter-kit/web3" component={Web3Settings} />
         {/* <Redirect from='*' to='/web-app-starter-kit/' /> */}
       </div>
     </ConnectedRouter>

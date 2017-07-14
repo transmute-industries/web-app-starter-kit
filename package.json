@@ -14,12 +14,15 @@
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-transition-group": "^15.6.0",
     "react-dom": "^15.6.1",
+    "react-flexbox-grid": "^1.1.3",
     "react-particles-js": "^1.5.0",
     "react-redux": "^5.0.5",
     "react-router-redux": "^5.0.0-alpha.6",
     "react-tap-event-plugin": "^2.0.1",
     "reactstrap": "^4.8.0",
     "redux": "^3.7.1",
+    "redux-form": "^7.0.0",
+    "redux-form-material-ui": "^4.2.0",
     "redux-thunk": "^2.2.0",
     "transmute-framework": "^0.1.38",
     "uport-connect": "^0.6.4"
@@ -57,6 +60,7 @@
     "deploy": "gh-pages -d build",
     "transmute": "node ./node_modules/transmute-framework/build/cli/index.js",
     "test:all": "npm run test && npm run transmute test",
-    "report-coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "report-coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "move-contracts": "mv build/contracts src/contracts"
   }
 }

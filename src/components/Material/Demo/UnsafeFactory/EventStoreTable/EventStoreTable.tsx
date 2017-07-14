@@ -14,6 +14,8 @@ import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 // https://github.com/hyojin/material-ui-datatables/blob/master/example/src/Main.js
 
 
+import { connect } from 'react-redux'
+
 const styles = {
   container: {
     textAlign: 'center',
@@ -63,13 +65,14 @@ import DataTables from 'material-ui-datatables'
 
 import * as _ from 'lodash';
 
-export default class EventStoreTable extends React.Component<any, any> {
+export class EventStoreTable extends React.Component<any, any> {
 
   componentWillReceiveProps(nextProps: any) {
-    console.log('set state here...', nextProps.mercury.factoryEventStores)
-    this.setState({
-      data: nextProps.mercury.factoryEventStores
-    })
+    console.log(nextProps)
+    // console.log('set state here...', nextProps.mercury.factoryEventStores)
+    // this.setState({
+    //   data: nextProps.mercury.factoryEventStores
+    // })
   }
 
   public eventStores: any;
@@ -147,16 +150,16 @@ export default class EventStoreTable extends React.Component<any, any> {
 
   handleCreateNewEventStoreClick() {
     console.log('handleCreateNewEventStoreClick')
-    this.props.createEventStore({
-      fromAddress: this.props.mercury.defaultAddress
-    })
+    // this.props.createEventStore({
+    //   fromAddress: this.props.mercury.defaultAddress
+    // })
   }
 
   handleRefreshFactoryEventStoresClick() {
     console.log('handleRefreshFactoryEventStoresClick')
-    this.props.getEventStoresByCreator({
-      fromAddress: this.props.mercury.defaultAddress
-    })
+    // this.props.getEventStoresByCreator({
+    //   fromAddress: this.props.mercury.defaultAddress
+    // })
   }
 
   render() {
@@ -198,3 +201,7 @@ export default class EventStoreTable extends React.Component<any, any> {
     )
   }
 }
+
+export default connect((state: any) => ({
+    transmute: state.transmute
+}))(EventStoreTable)
