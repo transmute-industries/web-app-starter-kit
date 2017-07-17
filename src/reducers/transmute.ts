@@ -26,7 +26,14 @@ const handlers = {
     }
   },
 
-  
+  ['DEMO_LOAD']: (state: any, action: any) => {
+    return {
+      ...state,
+      ['selectedContract']: action.payload.contractAddress,
+      ['demoView']: action.payload.view
+    }
+  },
+
   //   ['FACTORY_EVENT_STORE_ADDRESSES_RECEIVED']: (state: any, action: any) => {
   //     if (action.payload.length === 0) {
   //       return state
@@ -99,6 +106,7 @@ export const reducer = (state: any, action: any) => {
         value: '👑   Transmute   👑'
       }
     ],
+    demoView: 'factory',
     defaultAddress: null,
     addresses: null,
     factoryEventStores: [],

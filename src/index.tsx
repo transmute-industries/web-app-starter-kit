@@ -30,7 +30,7 @@ import BootstrapPage from './components/Bootstrap/BootstrapPage';
 import FactoryPage from './components/Material/FactoryPage/FactoryPage';
 import EventStorePage from './components/Material/EventStorePage/EventStorePage';
 
-
+import HealthcareDemo from './components/Material/Demo/Healthcare/Healthcare';
 
 import Web3Settings from './components/Material/Web3/Web3Settings';
 
@@ -43,6 +43,8 @@ ReactDOM.render(
       <div>
         <Route exact={true} path="/web-app-starter-kit/" component={HomePage} />
         <Route path="/web-app-starter-kit/web3" component={Web3Settings} />
+
+        <Route path="/web-app-starter-kit/healthcare" component={HealthcareDemo} />
 
         <Route path="/web-app-starter-kit/factory" component={FactoryPage} />
         <Route path="/web-app-starter-kit/eventstore/:contractAddress" component={EventStorePage} />
