@@ -11,8 +11,10 @@ import IconButton from 'material-ui/IconButton'
 import FileCreateNewFolder from 'material-ui/svg-icons/file/create-new-folder'
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 
-// https://github.com/hyojin/material-ui-datatables/blob/master/example/src/Main.js
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
+// https://github.com/hyojin/material-ui-datatables/blob/master/example/src/Main.js
 
 import { connect } from 'react-redux'
 
@@ -43,19 +45,23 @@ const styles = {
 
 const TABLE_COLUMNS_SORT_STYLE = [
   {
-    key: 'readModelType',
-    label: 'Model Type',
+    key: 'type',
+    label: 'Type',
     sortable: true,
   },
   {
-    key: 'contractAddress',
-    label: 'Contract Address',
+    key: 'txOrigin',
+    label: 'Creator',
   },
+  // {
+  //   key: 'payload',
+  //   label: 'Payload',
+  // },
   {
-    key: 'lastEvent',
-    label: 'Last Event',
-    sortable: true,
+    key: 'created',
+    label: 'Created',
   },
+
 ]
 
 // import { connect } from 'react-redux'
@@ -65,14 +71,52 @@ import DataTables from 'material-ui-datatables'
 
 import * as _ from 'lodash';
 
+import { readAllContractEvents, writeFSA } from '../../../actions/transmute'
+
+import * as moment from 'moment'
+
+// import { push } from 'react-router-redux'
+
+// const isEventStoreRoute = (path: string) => {
+//   return path.indexOf('/web-app-starter-kit/eventstore/') === 0
+// }
+
+const getContractAddressFromPath = (path: string) => {
+  return path.split('/web-app-starter-kit/eventstore/')[1]
+}
+
 export class EventStoreTable extends React.Component<any, any> {
 
   componentWillReceiveProps(nextProps: any) {
-    console.log(nextProps)
+    let data: any = []
+    let path = nextProps.router.location.pathname
+    // console.log('nextProps', isEventStoreRoute(path))
+    let contractAddress = getContractAddressFromPath(path)
+    // console.log('contractAddress', contractAddress)
+    if (!nextProps.transmute.events) {
+      console.log('load events...')
+      this.props.dispatch(readAllContractEvents(contractAddress, this.props.transmute.defaultAddress, 0))
+    }
+
+    if (nextProps.transmute.events) {
+      console.log('events', nextProps.transmute.events)
+
+      nextProps.transmute.events.forEach((event: any) => {
+        data.push({
+          type: event.type,
+          // contractAddress: key,
+          payload: event.payload,
+          txOrigin: event.meta.txOrigin,
+          created: moment.unix(event.meta.created).format('LLL')
+        })
+      })
+    }
+
     // console.log('set state here...', nextProps.mercury.factoryEventStores)
-    // this.setState({
-    //   data: nextProps.mercury.factoryEventStores
-    // })
+    this.setState({
+      data: data,
+      contractAddress: contractAddress
+    })
   }
 
   public eventStores: any;
@@ -84,14 +128,15 @@ export class EventStoreTable extends React.Component<any, any> {
     this.handleRowSelection = this.handleRowSelection.bind(this)
     this.handlePreviousPageClick = this.handlePreviousPageClick.bind(this)
     this.handleNextPageClick = this.handleNextPageClick.bind(this)
-    this.handleCreateNewEventStoreClick = this.handleCreateNewEventStoreClick.bind(this)
-    this.handleRefreshFactoryEventStoresClick = this.handleRefreshFactoryEventStoresClick.bind(this)
+    this.handleCreate = this.handleCreate.bind(this)
+    this.handleRefresh = this.handleRefresh.bind(this)
 
     this.eventStores = []; // this.state.eventStores
     this.state = {
       eventStores: this.eventStores,
       data: this.eventStores,
       page: 1,
+      open: false,
     }
   }
 
@@ -127,9 +172,15 @@ export class EventStoreTable extends React.Component<any, any> {
 
   handleRowSelection(selectedRows: any) {
     // console.log('selectedRows: ' + selectedRows)
-    let selectedEs = this.state.eventStores[selectedRows]
-    console.log('selectedEs.contractAddress: ', selectedEs.contractAddress)
-    // browserHistory.push(`/eventstore/${selectedEs.contractAddress}/events`)
+    let selectedModel = this.state.data[selectedRows]
+    console.log('selectedModel: ', selectedModel)
+    this.setState({
+      selectedPayload: selectedModel.payload
+    })
+    this.handleOpen()
+    // browserHistory.push()
+    // let path = `/web-app-starter-kit/eventstore/${selectedModel.contractAddress}`
+    // this.props.dispatch(push(path))
   }
 
   handlePreviousPageClick() {
@@ -148,26 +199,56 @@ export class EventStoreTable extends React.Component<any, any> {
     // })
   }
 
-  handleCreateNewEventStoreClick() {
-    console.log('handleCreateNewEventStoreClick')
+  handleCreate() {
+    console.log('handleCreate', this.props.dispatch)
+    this.props.dispatch(writeFSA(this.state.contractAddress, this.props.transmute.defaultAddress, {
+      type: 'RANDOM_MOMENT_CREATED',
+      payload: {
+        created: moment().format('LLL'),
+        data: Math.random()
+      }
+    }))
     // this.props.createEventStore({
     //   fromAddress: this.props.mercury.defaultAddress
     // })
   }
 
-  handleRefreshFactoryEventStoresClick() {
-    console.log('handleRefreshFactoryEventStoresClick')
+  handleRefresh() {
+    console.log('handleRefresh')
+    this.props.dispatch(readAllContractEvents(this.state.contractAddress, this.props.transmute.defaultAddress, 0))
+    // this.props.dispatch(getFactoryReadModel(this.props.transmute.defaultAddress))
     // this.props.getEventStoresByCreator({
     //   fromAddress: this.props.mercury.defaultAddress
     // })
   }
 
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   render() {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+      // <FlatButton
+      //   label="Submit"
+      //   primary={true}
+      //   keyboardFocused={true}
+      //   onTouchTap={this.handleClose}
+      // />,
+    ];
+
     return (
       <Card style={{ margin: 12 }}>
-  
-         <DataTables
-          title={'Event Stores'}
+        <DataTables
+          title={'Events'}
           titleStyle={styles.titleStyle}
           height={'auto'}
           selectable={true}
@@ -186,22 +267,34 @@ export class EventStoreTable extends React.Component<any, any> {
           onSortOrderChange={this.handleSortOrderChange}
           toolbarIconRight={[
             <IconButton
-              onClick={this.handleCreateNewEventStoreClick}
+              onClick={this.handleCreate}
             >
               <FileCreateNewFolder />
             </IconButton>,
             <IconButton
-              onClick={this.handleRefreshFactoryEventStoresClick}
+              onClick={this.handleRefresh}
             >
               <NavigationRefresh />
             </IconButton>
           ]}
-        /> 
+        />
+        <Dialog
+          title="Payload"
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+          <pre>
+            {JSON.stringify(this.state.selectedPayload, null, 2)}
+          </pre>
+        </Dialog>
       </Card>
     )
   }
 }
 
 export default connect((state: any) => ({
-    transmute: state.transmute
+  transmute: state.transmute,
+  router: state.router
 }))(EventStoreTable)

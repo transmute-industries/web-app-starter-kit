@@ -5,14 +5,13 @@ import { MuiThemeProvider, lightBaseTheme } from 'material-ui/styles';
 
 const lightMuiTheme = getMuiTheme(lightBaseTheme);
 
-import './UnsafeFactoryDemo.css';
+import './EventStorePage.css';
 
-import EventStoreTable from './EventStoreTable/EventStoreTable'
+import EventStoreReadModelTable from '../EventStoreReadModelTable/EventStoreReadModelTable'
 
 import Paper from 'material-ui/Paper';
 
-
-export default class UnsafeFactoryDemo extends React.Component<any, any> {
+export default class EventStorePage extends React.Component<any, any> {
   render() {
     return (
       <div className='material-demo'>
@@ -20,10 +19,10 @@ export default class UnsafeFactoryDemo extends React.Component<any, any> {
         <MuiThemeProvider muiTheme={lightMuiTheme}>
           <div>
             <Paper zDepth={4} className='factory-description'>
-              <h1>Factories</h1>
-              Factories allow your dApp users to create instances of your smart contracts.
+              <h1>EventStores</h1>
+              EventStores provide an audit log and permissions system for your smart contracts to extend.
             </Paper>
-            <EventStoreTable />
+            <EventStoreReadModelTable />
           </div>
         </MuiThemeProvider>
       </div>

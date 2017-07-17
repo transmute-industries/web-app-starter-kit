@@ -12,8 +12,21 @@ const handlers = {
       defaultAddress: defaultAddress,
       addresses: action.payload,
     }
-  }
+  },
+  ['TRANSMUTE_FACTORY_RECEIVED']: (state: any, action: any) => {
+    return {
+      ...state,
+      [action.payload.readModelType]: action.payload
+    }
+  },
+  ['TRANSMUTE_EVENTSTORE_EVENTS_RECEIEVED']: (state: any, action: any) => {
+    return {
+      ...state,
+      ['events']: action.payload.events
+    }
+  },
 
+  
   //   ['FACTORY_EVENT_STORE_ADDRESSES_RECEIVED']: (state: any, action: any) => {
   //     if (action.payload.length === 0) {
   //       return state

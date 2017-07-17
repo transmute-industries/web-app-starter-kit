@@ -27,8 +27,10 @@ import StarWarsPage from './components/StarWars/StarWarsPage';
 import MaterialPage from './components/Material/MaterialPage';
 import BootstrapPage from './components/Bootstrap/BootstrapPage';
 
+import FactoryPage from './components/Material/FactoryPage/FactoryPage';
+import EventStorePage from './components/Material/EventStorePage/EventStorePage';
 
-import UnsafeFactoryDemo from './components/Material/Demo/UnsafeFactory/UnsafeFactoryDemo';
+
 
 import Web3Settings from './components/Material/Web3/Web3Settings';
 
@@ -40,11 +42,16 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <div>
         <Route exact={true} path="/web-app-starter-kit/" component={HomePage} />
+        <Route path="/web-app-starter-kit/web3" component={Web3Settings} />
+
+        <Route path="/web-app-starter-kit/factory" component={FactoryPage} />
+        <Route path="/web-app-starter-kit/eventstore/:contractAddress" component={EventStorePage} />
+
         <Route path="/web-app-starter-kit/starwars" component={StarWarsPage} />
         <Route path="/web-app-starter-kit/material" component={MaterialPage} />
         <Route path="/web-app-starter-kit/bootstrap" component={BootstrapPage} />
-        <Route path="/web-app-starter-kit/factory" component={UnsafeFactoryDemo} />
-        <Route path="/web-app-starter-kit/web3" component={Web3Settings} />
+      
+       
         {/* <Redirect from='*' to='/web-app-starter-kit/' /> */}
       </div>
     </ConnectedRouter>
