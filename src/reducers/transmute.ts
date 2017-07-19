@@ -33,6 +33,13 @@ const handlers = {
       ['demoView']: action.payload.view
     }
   },
+  ['RECORD_EVENT_DIALOG_UPDATE']: (state: any, action: any) => {
+    console.log('payload: ', action.payload)
+    return {
+      ...state,
+      ['activeDialog']: action.payload,
+    }
+  }
 
   //   ['FACTORY_EVENT_STORE_ADDRESSES_RECEIVED']: (state: any, action: any) => {
   //     if (action.payload.length === 0) {

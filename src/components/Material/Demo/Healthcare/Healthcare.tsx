@@ -15,7 +15,6 @@ import PatientTable from './PatientTable/PatientTable'
 import PatientEventsTable from './PatientEventsTable/PatientEventsTable'
 class HealthcareDemo extends React.Component<any, any> {
   render() {
-
     return (
       <div className='material-demo' >
         <MuiThemeProvider muiTheme={lightMuiTheme}>

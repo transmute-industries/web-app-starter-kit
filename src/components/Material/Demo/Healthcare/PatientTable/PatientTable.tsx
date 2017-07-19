@@ -48,11 +48,11 @@ const TABLE_COLUMNS_SORT_STYLE = [
   // },
   {
     key: 'contractAddress',
-    label: 'Contract Stream',
+    label: 'Contract',
   },
   {
     key: 'ownerAddress',
-    label: 'Owner Address',
+    label: 'Owner',
   },
   {
     key: 'created',
