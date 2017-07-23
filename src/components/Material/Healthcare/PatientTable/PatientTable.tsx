@@ -1,17 +1,19 @@
 import * as React from 'react';
 
+// import RaisedButton from 'material-ui/RaisedButton';
+
+// import Dialog from 'material-ui/Dialog';
+// import FlatButton from 'material-ui/FlatButton'
+
+// import MenuItem from 'material-ui/MenuItem'
 import { Card } from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
-import NoteAdd from 'material-ui/svg-icons/action/note-add'
+import PersonAdd from 'material-ui/svg-icons/social/person-add'
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+// https://github.com/hyojin/material-ui-datatables/blob/master/example/src/Main.js
 
 import { connect } from 'react-redux'
-
-// import SelectSymptoms from '../SelectSymptoms/SelectSymptoms'
-// import RecordEvent from '../RecordEvent/RecordEvent'
 
 const styles = {
   container: {
@@ -39,15 +41,19 @@ const styles = {
 }
 
 const TABLE_COLUMNS_SORT_STYLE = [
-  {
-    key: 'type',
-    label: 'Type',
-    sortable: true,
-  },
   // {
-  //   key: 'txOrigin',
-  //   label: 'Creator',
+  //   key: 'readModelType',
+  //   label: 'Model Type',
+  //   sortable: true,
   // },
+  {
+    key: 'contractAddress',
+    label: 'Contract',
+  },
+  {
+    key: 'ownerAddress',
+    label: 'Owner',
+  },
   {
     key: 'created',
     label: 'Created',
@@ -59,42 +65,27 @@ import DataTables from 'material-ui-datatables'
 
 import * as _ from 'lodash';
 
-import {
-  readAllContractEvents,
-  // writeFSA
-} from '../../../../../actions/transmute'
+import { createEventStore, getFactoryReadModel, readAllContractEvents } from '../../../../actions/transmute'
 
 import * as moment from 'moment'
 
-import RecordEventDialog from '../RecordEventDialog/RecordEventDialog'
-
-
-export class EventStoreTable extends React.Component<any, any> {
+export class FactoryReadModelTable extends React.Component<any, any> {
 
   componentWillReceiveProps(nextProps: any) {
     let data: any = []
+    if (nextProps.transmute.RBACFactory) {
+      // console.log('RBACFactory', nextProps.transmute.RBACFactory.model)
 
-
-    if (!nextProps.transmute.events) {
-      console.log('load events...')
-      this.props.dispatch(readAllContractEvents(this.props.transmute.selectedContract, this.props.transmute.defaultAddress, 0))
-    }
-
-    if (nextProps.transmute.events) {
-      console.log('events', nextProps.transmute.events)
-
-      nextProps.transmute.events.forEach((event: any) => {
+      let keys = Object.keys(nextProps.transmute.RBACFactory.model)
+      keys.forEach((key: string) => {
         data.push({
-          type: event.type,
-          // contractAddress: key,
-          payload: event.payload,
-          txOrigin: event.meta.txOrigin,
-          created: moment.unix(event.meta.created).format('LLL')
+          readModelType: 'Patient Stream',
+          contractAddress: key,
+          ownerAddress: nextProps.transmute.RBACFactory.model[key].owner,
+          created: moment.unix(nextProps.transmute.RBACFactory.model[key].created).format('LLL')
         })
       })
     }
-
-    // console.log('set state here...', nextProps.mercury.factoryEventStores)
     this.setState({
       data: data
     })
@@ -107,7 +98,9 @@ export class EventStoreTable extends React.Component<any, any> {
     this.handleSortOrderChange = this.handleSortOrderChange.bind(this)
     this.handleFilterValueChange = this.handleFilterValueChange.bind(this)
     this.handleRowSelection = this.handleRowSelection.bind(this)
-    this.handleRecord = this.handleRecord.bind(this)
+    this.handlePreviousPageClick = this.handlePreviousPageClick.bind(this)
+    this.handleNextPageClick = this.handleNextPageClick.bind(this)
+    this.handleAdd = this.handleAdd.bind(this)
     this.handleRefresh = this.handleRefresh.bind(this)
 
     this.eventStores = []; // this.state.eventStores
@@ -115,8 +108,6 @@ export class EventStoreTable extends React.Component<any, any> {
       eventStores: this.eventStores,
       data: this.eventStores,
       page: 1,
-      open: false,
-      symptoms: []
     }
   }
 
@@ -142,52 +133,63 @@ export class EventStoreTable extends React.Component<any, any> {
     })
   }
 
-  handleRowSelection(selectedRows: any) {
-    let selectedModel = this.state.data[selectedRows]
-    this.setState({
-      dialogTitle: 'Event',
-      dialogBody: <pre>
-        {JSON.stringify(selectedModel, null, 2)}
-      </pre>,
-      dialogActions: [
-        <FlatButton
-          label="Cancel"
-          primary={true}
-          onTouchTap={this.handleClose}
-        />
-      ]
-    })
-    this.handleOpen()
+  handleCellClick(rowIndex: any, columnIndex: any, row: any, column: any) {
+    console.log('rowIndex: ' + rowIndex + ' columnIndex: ' + columnIndex)
   }
 
-  handleRecord(type: string) {
-    console.log('handleRecord', this.props.dispatch)
-    this.props.dispatch({
-      type: 'RECORD_EVENT_DIALOG_UPDATE',
+  handleCellDoubleClick(rowIndex: any, columnIndex: any, row: any, column: any) {
+    console.log('rowIndex: ' + rowIndex + ' columnIndex: ' + columnIndex)
+  }
+
+  handleRowSelection(selectedRows: any) {
+    // console.log('selectedRows: ' + selectedRows)
+    let selectedModel = this.state.data[selectedRows]
+    // console.log('selectedModel: ', selectedModel)
+    this.props.dispatch(readAllContractEvents(selectedModel.contractAddress, this.props.transmute.defaultAddress, 0))
+   
+     this.props.dispatch({
+      type: 'DEMO_LOAD',
       payload: {
-        type: type
+        contractAddress: selectedModel.contractAddress,
+        view: 'eventstore'
       }
     })
   }
 
-  handleRefresh() {
-    console.log('handleRefresh')
-    this.props.dispatch(readAllContractEvents(this.props.transmute.selectedContract, this.props.transmute.defaultAddress, 0))
+  handlePreviousPageClick() {
+    console.log('handlePreviousPageClick')
+    // this.setState({
+    //   data: this.state.eventStores,
+    //   page: 1,
+    // })
   }
 
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
+  handleNextPageClick() {
+    console.log('handleNextPageClick')
+    // this.setState({
+    //   data: this.state.eventStores,
+    //   page: 2,
+    // })
+  }
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+  handleAdd() {
+    console.log('handleAdd', this.props.dispatch)
+    this.props.dispatch(createEventStore(this.props.transmute.defaultAddress))
+    // this.props.createEventStore({
+    //   fromAddress: this.props.mercury.defaultAddress
+    // })
+  }
+
+  handleRefresh() {
+    console.log('handleRefresh')
+    this.props.dispatch(getFactoryReadModel(this.props.transmute.defaultAddress))
+  }
+
   render() {
-
     return (
-      <Card>
+      <Card >
         <DataTables
-          title={'Events'}
+          title={'Patients'}
           titleStyle={styles.titleStyle}
           height={'auto'}
           selectable={true}
@@ -206,12 +208,9 @@ export class EventStoreTable extends React.Component<any, any> {
           onSortOrderChange={this.handleSortOrderChange}
           toolbarIconRight={[
             <IconButton
-              onClick={() => {
-                let type = Math.random() > .5 ? 'SYMPTOMS' : 'TEMPERATURE';
-                this.handleRecord(type)
-              }}
+              onClick={this.handleAdd}
             >
-              <NoteAdd />
+              <PersonAdd />
             </IconButton>,
             <IconButton
               onClick={this.handleRefresh}
@@ -220,16 +219,6 @@ export class EventStoreTable extends React.Component<any, any> {
             </IconButton>
           ]}
         />
-        <Dialog
-          title={this.state.dialogTitle}
-          actions={this.state.dialogActions}
-          modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
-        >
-          {this.state.dialogBody}
-        </Dialog>
-        <RecordEventDialog />
       </Card>
     )
   }
@@ -237,4 +226,4 @@ export class EventStoreTable extends React.Component<any, any> {
 
 export default connect((state: any) => ({
   transmute: state.transmute
-}))(EventStoreTable)
+}))(FactoryReadModelTable)

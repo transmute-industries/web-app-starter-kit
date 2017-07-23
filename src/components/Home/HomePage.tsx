@@ -45,7 +45,7 @@ export default class HomePage extends React.Component<any, any> {
                             <div className='material-btn'>
                                 <MuiThemeProvider muiTheme={lightMuiTheme}>
                                     <RaisedButton secondary label="Demo" onTouchTap={() => {
-                                        this.launchDemo('/web-app-starter-kit/factory');
+                                        this.launchDemo('/web-app-starter-kit/healthcare');
                                     }} />
                                 </MuiThemeProvider>
                             </div>

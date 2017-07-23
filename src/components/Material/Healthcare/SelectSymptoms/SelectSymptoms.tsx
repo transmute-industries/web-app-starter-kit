@@ -20,7 +20,6 @@ export default class SelectFieldExampleMultiSelect extends React.Component<any, 
   };
 
   handleChange = (event: any, index: any, values: any) => {
-    // console.log('LOLOLOL: ', this.props)
     this.props.parent.setState({
       symptoms: values
     })

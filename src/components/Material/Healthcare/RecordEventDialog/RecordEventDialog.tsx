@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import {
     //   readAllContractEvents,
     writeFSA
-} from '../../../../../actions/transmute'
+} from '../../../../actions/transmute'
 
 import SelectSymptoms from '../SelectSymptoms/SelectSymptoms'
 import ReportTemperature from '../ReportTemperature/ReportTemperature'
@@ -70,7 +70,7 @@ export class RecordEventDialog extends React.Component<any, any> {
                                 type: payloadType,
                                 payload: {
                                     created: moment().format('LLL'),
-                                    data: title === 'New Symptoms' ? this.state.symptoms : this.state.temperature
+                                    data: title === 'New Symptoms' ? this.state.symptoms : parseFloat(this.state.temperature)
                                 }
                             }
                             this.props.dispatch(writeFSA(this.props.transmute.selectedContract, this.props.transmute.defaultAddress, fsa))

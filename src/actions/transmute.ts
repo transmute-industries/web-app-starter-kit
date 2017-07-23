@@ -3,14 +3,13 @@
 
 import TransmuteFramework from '../transmute'
 
-
 export const getFactoryReadModel = (fromAddress: string) => (dispatch: any) => {
 
     TransmuteFramework.EventStoreFactoryContract.deployed()
         .then((factory: any) => {
             TransmuteFramework.Factory.getFactoryReadModel(factory, fromAddress)
                 .then((readModel: any) => {
-                    console.log('readModel: ', readModel)
+                    // console.log('readModel: ', readModel)
                     dispatch({
                         type: 'TRANSMUTE_FACTORY_RECEIVED',
                         payload: readModel
@@ -111,6 +110,15 @@ export const writeFSA = (
 }
 
 
+export const setDemoMode = (
+    demoMode: string,
+) => (dispatch: any) => {
+    localStorage.setItem('demoMode', demoMode)
+    dispatch({
+        type: 'USE_ADVANCED_DEMO',
+        payload: demoMode === 'advanced'
+    })
+}
 
 
 

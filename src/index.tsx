@@ -30,7 +30,7 @@ import BootstrapPage from './components/Bootstrap/BootstrapPage';
 import FactoryPage from './components/Material/FactoryPage/FactoryPage';
 import EventStorePage from './components/Material/EventStorePage/EventStorePage';
 
-import HealthcareDemo from './components/Material/Demo/Healthcare/Healthcare';
+import HealthcareDemo from './components/Material/Healthcare/Healthcare';
 
 import Web3Settings from './components/Material/Web3/Web3Settings';
 

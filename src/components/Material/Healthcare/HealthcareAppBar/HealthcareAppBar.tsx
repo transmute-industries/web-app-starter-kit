@@ -10,7 +10,13 @@ import Menu from 'material-ui/svg-icons/navigation/menu';
 import Drawer from 'material-ui/Drawer';
 
 import { connect } from 'react-redux'
-import { getFactoryReadModel} from '../../../../../actions/transmute'
+import { getFactoryReadModel, setDemoMode } from '../../../../actions/transmute'
+
+import { push } from 'react-router-redux'
+
+import { store } from '../../../../store/store';
+
+
 
 class Login extends React.Component {
   static muiName = 'FlatButton';
@@ -66,12 +72,24 @@ class HealthcareAppBar extends React.Component<any, any> {
           iconElementRight={this.state.logged ? <Logged /> : <Login />}
         />
         <Drawer open={this.state.open} docked={false} onRequestChange={(open) => this.setState({ open })}>
-          <MenuItem>Menu Item</MenuItem>
-          <MenuItem>Menu Item 2</MenuItem>
+          <MenuItem onTouchTap={() => {
+            console.log('go home...')
+            store.dispatch(push('/web-app-starter-kit/'))
+          }}>Home</MenuItem>
           <Toggle
-            label="Logged"
+            label="Fake Login"
             defaultToggled={true}
             onToggle={this.handleChange}
+            labelPosition="right"
+            style={{ margin: 20 }}
+          />
+
+          <Toggle
+            label="Advanced Demo"
+            defaultToggled={this.props.transmute.advancedDemo}
+            onToggle={(event: any, isOn: boolean) => {
+              this.props.dispatch(setDemoMode(isOn ? 'advanced' : 'normal'))
+            }}
             labelPosition="right"
             style={{ margin: 20 }}
           />
@@ -81,7 +99,6 @@ class HealthcareAppBar extends React.Component<any, any> {
   }
 }
 
-let comp: any = HealthcareAppBar;
 export default connect((state: any) => ({
   transmute: state.transmute
-}))(comp)
+}))(HealthcareAppBar)
