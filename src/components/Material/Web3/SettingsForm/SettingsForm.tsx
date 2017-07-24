@@ -18,6 +18,13 @@ import {
 } from 'redux-form-material-ui'
 
 
+import RaisedButton from 'material-ui/RaisedButton';
+
+import { store } from '../../../../store/store';
+
+import { updateWeb3Settings } from '../../../../actions/transmute'
+
+
 export class FormComponent extends React.Component<any, any> {
     //   componentDidMount() {
     //     this.refs.name // the Field
@@ -27,18 +34,10 @@ export class FormComponent extends React.Component<any, any> {
     //   }
 
     render() {
-        const f: any = this.props
 
-        const { handleSubmit } = f
         return (
             <form >
-                <Field style={{ width: '100%' }} name='provider' component={SelectField} hintText='Select a provider'
-                    onChange={(event: any) => {
-                        setTimeout(() => {
-                            console.log
-                            handleSubmit()
-                        }, .25 * 1000)
-                    }}>
+                <Field style={{ width: '100%' }} name='provider' component={SelectField} hintText='Select a provider'>
                     <MenuItem value='testrpc' primaryText='Test RPC' />
                     <MenuItem value='metamask' primaryText='MetaMask' />
                     <MenuItem value='infura' primaryText='Infura' />
@@ -47,21 +46,41 @@ export class FormComponent extends React.Component<any, any> {
                 {/* <code>
                     {JSON.stringify(this.props.transmute)}
                 </code> */}
+
+                <Field style={{ width: '100%' }} name='defaultAddress' component={SelectField} hintText='Select a default address'>
+                    {
+                        this.props.transmute.addresses && this.props.transmute.addresses.map((address: string) => {
+                            return (
+                                <MenuItem key={address} value={address} primaryText={address} />
+                            )
+                        })
+                    }
+                </Field>
+
+                <RaisedButton secondary label="Save" onTouchTap={async () => {
+                    this.props.handleSubmit()
+                }} />
             </form>
         )
     }
 }
 
-
-let FC: any = FormComponent;
-let Form: any = connect((state: any) => ({
-    transmute: state.transmute
-}))(FC)
-
-
-export default reduxForm({
+const form = reduxForm({
     form: 'example',
-    initialValues: {
-        provider: 'testrpc'
-    }
-})(Form)
+    enableReinitialization: true
+})(FormComponent)
+
+export default connect(
+    ({ transmute }) => ({
+        transmute: transmute,
+        initialValues: {
+            defaultAddress: transmute.defaultAddress,
+            provider: transmute.provider,
+        },
+        onSubmit: (data: any) => {
+            // console.log(data)
+            store.dispatch(updateWeb3Settings(data))
+        }
+    }),
+)(form) as any
+

@@ -16,8 +16,6 @@ import { push } from 'react-router-redux'
 
 import { store } from '../../../../store/store';
 
-
-
 class Login extends React.Component {
   static muiName = 'FlatButton';
   render() {
@@ -45,7 +43,8 @@ Logged.muiName = 'IconMenu';
 class HealthcareAppBar extends React.Component<any, any> {
   state = {
     logged: true,
-    open: false
+    open: false,
+    isSelectEventStoreDialogOpen: false
   };
   handleChange = (event: any, logged: any) => {
     this.setState({ logged: logged });
@@ -73,9 +72,11 @@ class HealthcareAppBar extends React.Component<any, any> {
         />
         <Drawer open={this.state.open} docked={false} onRequestChange={(open) => this.setState({ open })}>
           <MenuItem onTouchTap={() => {
-            console.log('go home...')
             store.dispatch(push('/web-app-starter-kit/'))
           }}>Home</MenuItem>
+          <MenuItem onTouchTap={() => {
+            store.dispatch(push('/web-app-starter-kit/web3'))
+          }}>Web3</MenuItem>
           <Toggle
             label="Fake Login"
             defaultToggled={true}
@@ -83,7 +84,6 @@ class HealthcareAppBar extends React.Component<any, any> {
             labelPosition="right"
             style={{ margin: 20 }}
           />
-
           <Toggle
             label="Advanced Demo"
             defaultToggled={this.props.transmute.advancedDemo}
@@ -94,7 +94,7 @@ class HealthcareAppBar extends React.Component<any, any> {
             style={{ margin: 20 }}
           />
         </Drawer>
-      </div>
+     </div>
     );
   }
 }

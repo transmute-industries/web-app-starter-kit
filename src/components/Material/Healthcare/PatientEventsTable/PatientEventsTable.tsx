@@ -1,25 +1,20 @@
 import * as React from 'react';
+import * as _ from 'lodash';
+import * as moment from 'moment'
 
 import { Card } from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
 import NoteAdd from 'material-ui/svg-icons/action/note-add'
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
-
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
 import { connect } from 'react-redux'
 
-// import SelectSymptoms from '../SelectSymptoms/SelectSymptoms'
-// import RecordEvent from '../RecordEvent/RecordEvent'
-
 import {
-  readAllContractEvents,
-  // writeFSA
+  readAllContractEvents
 } from '../../../../actions/transmute'
 
-
-import PatientSummaryCard from '../PatientSummaryCard/PatientSummaryCard'
 
 const styles = {
   container: {
@@ -64,29 +59,19 @@ const TABLE_COLUMNS_SORT_STYLE = [
 ]
 
 import DataTables from 'material-ui-datatables'
-
-import * as _ from 'lodash';
-
-
-import * as moment from 'moment'
-
 import RecordEventDialog from '../RecordEventDialog/RecordEventDialog'
-
 
 export class EventStoreTable extends React.Component<any, any> {
 
   componentWillReceiveProps(nextProps: any) {
     let data: any = []
 
-
-    if (!nextProps.transmute.events) {
-      console.log('load events...')
+    if (!nextProps.transmute.events && nextProps.transmute.selectedContract) {
       this.props.dispatch(readAllContractEvents(this.props.transmute.selectedContract, this.props.transmute.defaultAddress, 0))
     }
 
     if (nextProps.transmute.events) {
       console.log('events', nextProps.transmute.events)
-
       nextProps.transmute.events.forEach((event: any) => {
         data.push({
           type: event.type,
@@ -97,8 +82,6 @@ export class EventStoreTable extends React.Component<any, any> {
         })
       })
     }
-
-    // console.log('set state here...', nextProps.mercury.factoryEventStores)
     this.setState({
       data: data
     })
@@ -125,7 +108,7 @@ export class EventStoreTable extends React.Component<any, any> {
   }
 
   handleSortOrderChange(key: any, order: any) {
-    console.log('key:' + key + ' order: ' + order)
+    // console.log('key:' + key + ' order: ' + order)
     let data = _.sortBy(this.state.eventStores, [key])
     if (order === 'desc') {
       data.reverse()
@@ -136,7 +119,7 @@ export class EventStoreTable extends React.Component<any, any> {
   }
 
   handleFilterValueChange(value: any) {
-    console.log('filter value: ' + value)
+    // console.log('filter value: ' + value)
     let data = this.state.eventStores
     if (value !== '') {
       data = _.filter(data, _.matches({ 'contractAddress': value }))
@@ -165,7 +148,7 @@ export class EventStoreTable extends React.Component<any, any> {
   }
 
   handleRecord(type: string) {
-    console.log('handleRecord', this.props.dispatch)
+    // console.log('handleRecord', this.props.dispatch)
     this.props.dispatch({
       type: 'RECORD_EVENT_DIALOG_UPDATE',
       payload: {
@@ -175,7 +158,7 @@ export class EventStoreTable extends React.Component<any, any> {
   }
 
   handleRefresh() {
-    console.log('handleRefresh')
+    // console.log('handleRefresh')
     this.props.dispatch(readAllContractEvents(this.props.transmute.selectedContract, this.props.transmute.defaultAddress, 0))
   }
 
@@ -190,6 +173,7 @@ export class EventStoreTable extends React.Component<any, any> {
 
     return (
       <div>
+
         <Card>
           <DataTables
             title={'Events'}
@@ -210,18 +194,19 @@ export class EventStoreTable extends React.Component<any, any> {
             onFilterValueChange={this.handleFilterValueChange}
             onSortOrderChange={this.handleSortOrderChange}
             toolbarIconRight={[
+              
+              <IconButton
+                onClick={this.handleRefresh}
+              >
+                <NavigationRefresh />
+              </IconButton>,
               <IconButton
                 onClick={() => {
                   let type = this.props.transmute.advancedDemo ? 'SYMPTOMS' : 'TEMPERATURE';
                   this.handleRecord(type)
                 }}
               >
-                <NoteAdd />
-              </IconButton>,
-              <IconButton
-                onClick={this.handleRefresh}
-              >
-                <NavigationRefresh />
+                <NoteAdd/>
               </IconButton>
             ]}
           />
@@ -235,11 +220,7 @@ export class EventStoreTable extends React.Component<any, any> {
             {this.state.dialogBody}
           </Dialog>
           <RecordEventDialog />
-
-
         </Card>
-
-        <PatientSummaryCard />
 
       </div>
     )

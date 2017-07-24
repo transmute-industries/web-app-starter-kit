@@ -11,12 +11,10 @@ import Paper from 'material-ui/Paper';
 
 import SettingsForm from './SettingsForm/SettingsForm'
 
+// import { updateWeb3Settings } from '../../../actions/transmute'
 
 export default class Web3Settings extends React.Component<any, any> {
   render() {
-    // let {web3} = null
-    // let web3
-    // let 
     return (
       <div className='web3-settings'>
 
@@ -27,10 +25,8 @@ export default class Web3Settings extends React.Component<any, any> {
                 <h1>Web3</h1>
                 Web3 is used to talk to the Ethereum Blockchain.
               </div>
-              <div style={{padding: '16px'}}>
-              <SettingsForm onSubmit={(data: any) => {
-                console.log(data)
-              }} />
+              <div style={{ padding: '16px' }}>
+                <SettingsForm  />
               </div>
             </Paper>
           </div>

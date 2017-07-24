@@ -1,8 +1,5 @@
 
 
-
-
-
 const handlers = {
 
   ['TRANSMUTE_WEB3_ACCOUNTS_RECEIVED']: (state: any, action: any) => {
@@ -26,28 +23,30 @@ const handlers = {
     }
   },
 
-  ['DEMO_LOAD']: (state: any, action: any) => {
+  ['EVENTSTORE_ADDRESS_UPDATED']: (state: any, action: any) => {
     return {
       ...state,
-      ['selectedContract']: action.payload.contractAddress,
-      ['demoView']: action.payload.view
+      ['selectedContract']: action.payload
     }
   },
   ['RECORD_EVENT_DIALOG_UPDATE']: (state: any, action: any) => {
-    // console.log('payload: ', action.payload)
     return {
       ...state,
       ['activeDialog']: action.payload,
     }
   },
-
   ['USE_ADVANCED_DEMO']: (state: any, action: any) => {
     return {
       ...state,
       ['advancedDemo']: action.payload,
     }
   },
-  
+  ['PATIENT_SUMMARY_UPDATED']: (state: any, action: any) => {
+    return {
+      ...state,
+      ['patientSummary']: action.payload,
+    }
+  },
 }
 
 export const reducer = (state: any, action: any) => {
@@ -56,9 +55,11 @@ export const reducer = (state: any, action: any) => {
   }
   return {
     advancedDemo: localStorage.getItem('demoMode') === 'advanced' || false,
-    demoView: 'factory',
-    defaultAddress: null,
+    patientSummary: JSON.parse(<any>localStorage.getItem('patientSummary')) || {},
+    defaultAddress: localStorage.getItem('defaultAddress') || null,
+    selectedContract: localStorage.getItem('selectedContract') || null,
     addresses: null,
+    provider: localStorage.getItem('provider') || 'testrpc',
     ...state
   }
 }
