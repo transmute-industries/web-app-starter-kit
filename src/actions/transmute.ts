@@ -126,7 +126,6 @@ export const loadPatientSummaryReadModel = (
     dispatch(updatePatientSummary(updatedReadModel.model))
 }
 
-
 // export const getEventStoresByOwner = (fromAddress: string) => (dispatch: any) => {
 //     TransmuteFramework.EventStoreFactoryContract.deployed()
 //         .then((factory: any) => {

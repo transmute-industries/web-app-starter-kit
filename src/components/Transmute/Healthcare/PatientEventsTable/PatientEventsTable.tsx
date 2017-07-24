@@ -193,19 +193,26 @@ export class EventStoreTable extends React.Component<any, any> {
             onFilterValueChange={this.handleFilterValueChange}
             onSortOrderChange={this.handleSortOrderChange}
             toolbarIconRight={[
-              
+
+
+              <IconButton
+                onClick={() => {
+                  this.handleRecord('TEMPERATURE')
+                }}
+              >
+                <NoteAdd />
+              </IconButton>,
+              <IconButton
+                onClick={() => {
+                  this.handleRecord('SYMPTOMS')
+                }}
+              >
+                <NoteAdd />
+              </IconButton>,
               <IconButton
                 onClick={this.handleRefresh}
               >
                 <NavigationRefresh />
-              </IconButton>,
-              <IconButton
-                onClick={() => {
-                  let type = this.props.transmute.advancedDemo ? 'SYMPTOMS' : 'TEMPERATURE';
-                  this.handleRecord(type)
-                }}
-              >
-                <NoteAdd/>
               </IconButton>
             ]}
           />
