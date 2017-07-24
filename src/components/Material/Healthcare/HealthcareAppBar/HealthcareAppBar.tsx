@@ -65,7 +65,7 @@ class HealthcareAppBar extends React.Component<any, any> {
     return (
       <div>
         <AppBar
-          title="Patient DB"
+          title="Ether Care"
           onTitleTouchTap={this.handleTitleTouch}
           iconElementLeft={<IconButton onTouchTap={this.handleToggle}><Menu /></IconButton>}
           iconElementRight={this.state.logged ? <Logged /> : <Login />}

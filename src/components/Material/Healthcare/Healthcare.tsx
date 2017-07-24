@@ -15,9 +15,7 @@ import SelectEventStoreCard from './SelectEventStoreCard/SelectEventStoreCard'
 import PatientEventsTable from './PatientEventsTable/PatientEventsTable'
 import PatientSummaryCard from './PatientSummaryCard/PatientSummaryCard'
 
-
 import { Grid, Row, Col } from 'react-flexbox-grid'
-
 
 class HealthcareDemo extends React.Component<any, any> {
   render() {
