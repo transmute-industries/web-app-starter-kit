@@ -10,7 +10,7 @@ export class PatientSummaryCard extends React.Component<any, any> {
         return (
             <Card>
                 <CardTitle>
-                    Summary
+                    Read Model
                 </CardTitle>
                 <CardText>
                     <pre>

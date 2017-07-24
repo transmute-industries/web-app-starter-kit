@@ -173,10 +173,9 @@ export class EventStoreTable extends React.Component<any, any> {
 
     return (
       <div>
-
         <Card>
           <DataTables
-            title={'Events'}
+            title={'Patient Events'}
             titleStyle={styles.titleStyle}
             height={'auto'}
             selectable={true}
