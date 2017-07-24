@@ -35,12 +35,6 @@ const handlers = {
       ['activeDialog']: action.payload,
     }
   },
-  ['USE_ADVANCED_DEMO']: (state: any, action: any) => {
-    return {
-      ...state,
-      ['advancedDemo']: action.payload,
-    }
-  },
   ['PATIENT_SUMMARY_UPDATED']: (state: any, action: any) => {
     return {
       ...state,
@@ -54,7 +48,6 @@ export const reducer = (state: any, action: any) => {
     return handlers[action.type](state, action)
   }
   return {
-    advancedDemo: localStorage.getItem('demoMode') === 'advanced' || false,
     patientSummary: JSON.parse(<any>localStorage.getItem('patientSummary')) || {},
     defaultAddress: localStorage.getItem('defaultAddress') || null,
     selectedContract: localStorage.getItem('selectedContract') || null,

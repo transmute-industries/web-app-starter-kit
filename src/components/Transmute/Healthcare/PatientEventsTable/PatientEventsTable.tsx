@@ -4,10 +4,13 @@ import * as moment from 'moment'
 
 import { Card } from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
-import NoteAdd from 'material-ui/svg-icons/action/note-add'
+
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+
+import AddTemp from 'material-ui/svg-icons/places/hot-tub'
+import AddSymp from 'material-ui/svg-icons/places/beach-access'
 
 import { connect } from 'react-redux'
 
@@ -148,7 +151,6 @@ export class EventStoreTable extends React.Component<any, any> {
   }
 
   handleRecord(type: string) {
-    // console.log('handleRecord', this.props.dispatch)
     this.props.dispatch({
       type: 'RECORD_EVENT_DIALOG_UPDATE',
       payload: {
@@ -200,14 +202,14 @@ export class EventStoreTable extends React.Component<any, any> {
                   this.handleRecord('TEMPERATURE')
                 }}
               >
-                <NoteAdd />
+                <AddTemp />
               </IconButton>,
               <IconButton
                 onClick={() => {
                   this.handleRecord('SYMPTOMS')
                 }}
               >
-                <NoteAdd />
+                <AddSymp />
               </IconButton>,
               <IconButton
                 onClick={this.handleRefresh}

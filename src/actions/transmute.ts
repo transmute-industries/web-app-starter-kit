@@ -69,15 +69,7 @@ export const writeFSA = (
     dispatch(loadPatientSummaryReadModel(contractAddress, fromAddress))
 }
 
-export const setDemoMode = (
-    demoMode: string,
-) => (dispatch: any) => {
-    localStorage.setItem('demoMode', demoMode)
-    dispatch({
-        type: 'USE_ADVANCED_DEMO',
-        payload: demoMode === 'advanced'
-    })
-}
+
 
 export const updatePatientSummary = (
     readModel: any,

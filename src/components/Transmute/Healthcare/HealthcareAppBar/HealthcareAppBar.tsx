@@ -10,7 +10,6 @@ import Menu from 'material-ui/svg-icons/navigation/menu';
 import Drawer from 'material-ui/Drawer';
 
 import { connect } from 'react-redux'
-import { getFactoryReadModel, setDemoMode } from '../../../../actions/transmute'
 
 import { push } from 'react-router-redux'
 
@@ -52,14 +51,7 @@ class HealthcareAppBar extends React.Component<any, any> {
   handleToggle = () => this.setState({ open: !this.state.open });
 
   handleTitleTouch = () => {
-    this.props.dispatch({
-      type: 'DEMO_LOAD',
-      payload: {
-        contractAddress: null,
-        view: 'factory'
-      }
-    })
-    this.props.dispatch(getFactoryReadModel(this.props.transmute.defaultAddress))
+ 
   }
   render() {
     return (
@@ -84,15 +76,7 @@ class HealthcareAppBar extends React.Component<any, any> {
             labelPosition="right"
             style={{ margin: 20 }}
           />
-          <Toggle
-            label="Advanced Demo"
-            defaultToggled={this.props.transmute.advancedDemo}
-            onToggle={(event: any, isOn: boolean) => {
-              this.props.dispatch(setDemoMode(isOn ? 'advanced' : 'normal'))
-            }}
-            labelPosition="right"
-            style={{ margin: 20 }}
-          />
+    
         </Drawer>
      </div>
     );
