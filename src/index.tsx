@@ -23,16 +23,13 @@ console.log('🦄  Transmute  🦄')
 
 // let App:any = AppConnected;
 import HomePage from './components/Home/HomePage';
-import StarWarsPage from './components/StarWars/StarWarsPage';
-import MaterialPage from './components/Material/MaterialPage';
-import BootstrapPage from './components/Bootstrap/BootstrapPage';
 
-import FactoryPage from './components/Material/FactoryPage/FactoryPage';
-import EventStorePage from './components/Material/EventStorePage/EventStorePage';
+import FactoryPage from './components/Transmute/FactoryPage/FactoryPage';
+import EventStorePage from './components/Transmute/EventStorePage/EventStorePage';
 
-import HealthcareDemo from './components/Material/Healthcare/Healthcare';
+import HealthcareDemo from './components/Transmute/Healthcare/Healthcare';
 
-import Web3Settings from './components/Material/Web3/Web3Settings';
+import Web3Settings from './components/Transmute/Web3/Web3Settings';
 
 import { getAccounts} from './actions/transmute'
 store.dispatch(getAccounts())
@@ -49,11 +46,6 @@ ReactDOM.render(
         <Route path="/web-app-starter-kit/factory" component={FactoryPage} />
         <Route path="/web-app-starter-kit/eventstore/:contractAddress" component={EventStorePage} />
 
-        <Route path="/web-app-starter-kit/starwars" component={StarWarsPage} />
-        <Route path="/web-app-starter-kit/material" component={MaterialPage} />
-        <Route path="/web-app-starter-kit/bootstrap" component={BootstrapPage} />
-      
-       
         {/* <Redirect from='*' to='/web-app-starter-kit/' /> */}
       </div>
     </ConnectedRouter>

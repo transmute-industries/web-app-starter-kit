@@ -8,7 +8,7 @@ let { getCachedReadModel } = TransmuteFramework.ReadModel
 import {
     reducer as patientSummaryReducer,
     readModel as patientSummaryReadModel
-} from '../components/Material/Healthcare/PatientSummaryCard/PatientSummaryReducer'
+} from '../components/Transmute/Healthcare/PatientSummaryCard/PatientSummaryReducer'
 
 export const getFactoryReadModel = (fromAddress: string) => (dispatch: any) => {
     TransmuteFramework.EventStoreFactoryContract.deployed()
