@@ -10,17 +10,13 @@ import {
     readModel as patientSummaryReadModel
 } from '../components/Transmute/Healthcare/PatientSummaryCard/PatientSummaryReducer'
 
-export const getFactoryReadModel = (fromAddress: string) => (dispatch: any) => {
-    TransmuteFramework.EventStoreFactoryContract.deployed()
-        .then((factory: any) => {
-            TransmuteFramework.Factory.getFactoryReadModel(factory, fromAddress)
-                .then((readModel: any) => {
-                    dispatch({
-                        type: 'TRANSMUTE_FACTORY_RECEIVED',
-                        payload: readModel
-                    })
-                })
-        })
+export const getFactoryReadModel = (fromAddress: string) => async (dispatch: any) => {
+    let factory = await TransmuteFramework.EventStoreFactoryContract.deployed()
+    let readModel = await TransmuteFramework.Factory.getFactoryReadModel(factory, fromAddress)
+    dispatch({
+        type: 'TRANSMUTE_FACTORY_RECEIVED',
+        payload: readModel
+    })
 }
 
 export const getAccounts = () => (dispatch: any) => {
@@ -38,51 +34,39 @@ export const getAccounts = () => (dispatch: any) => {
         })
 }
 
-export const createEventStore = (fromAddress: string) => (dispatch: any) => {
-    TransmuteFramework.EventStoreFactoryContract.deployed()
-        .then((factory: any) => {
-            TransmuteFramework.Factory.createEventStore(factory, fromAddress)
-                .then((data: any) => {
-                    dispatch(getFactoryReadModel(fromAddress))
-                    dispatch(updateSelectedContract( data.events[0].payload.address, fromAddress))
-                })
-        })
+export const createEventStore = (fromAddress: string) => async (dispatch: any) => {
+    let factory = await TransmuteFramework.EventStoreFactoryContract.deployed()
+    let data = await TransmuteFramework.Factory.createEventStore(factory, fromAddress)
+    dispatch(getFactoryReadModel(fromAddress))
+    dispatch(updateSelectedContract(data.events[0].payload.address, fromAddress))
 }
 
 export const readAllContractEvents = (
     contractAddress: string,
     fromAddress: string,
     eventIndex: number
-) => (dispatch: any) => {
-    TransmuteFramework.EventStoreContract.at(contractAddress)
-        .then((eventStore: any) => {
-            TransmuteFramework.EventStore.readFSAs(eventStore, fromAddress, eventIndex)
-                .then((events: any) => {
-                    dispatch({
-                        type: 'TRANSMUTE_EVENTSTORE_EVENTS_RECEIEVED',
-                        payload: {
-                            contractAddress: contractAddress,
-                            events: events
-                        }
-                    })
-                })
-        })
+) => async (dispatch: any) => {
+    let eventStore = await TransmuteFramework.EventStoreContract.at(contractAddress)
+    let events = await TransmuteFramework.EventStore.readFSAs(eventStore, fromAddress, eventIndex)
+    dispatch({
+        type: 'TRANSMUTE_EVENTSTORE_EVENTS_RECEIEVED',
+        payload: {
+            contractAddress: contractAddress,
+            events: events
+        }
+    })
 }
 
 export const writeFSA = (
     contractAddress: string,
     fromAddress: string,
     event: any
-) => (dispatch: any) => {
-    TransmuteFramework.EventStoreContract.at(contractAddress)
-        .then((eventStore: any) => {
-            TransmuteFramework.EventStore.writeFSA(eventStore, fromAddress, event)
-                .then((data: any) => {
-                    console.log('wrote fsa (converted): ', data)
-                    dispatch(readAllContractEvents(contractAddress, fromAddress, 0))
-                    dispatch(loadPatientSummaryReadModel(contractAddress, fromAddress))
-                })
-        })
+) => async (dispatch: any) => {
+    let eventStore = await TransmuteFramework.EventStoreContract.at(contractAddress)
+    let data = await TransmuteFramework.EventStore.writeFSA(eventStore, fromAddress, event)
+    console.log('wrote fsa (converted): ', data)
+    dispatch(readAllContractEvents(contractAddress, fromAddress, 0))
+    dispatch(loadPatientSummaryReadModel(contractAddress, fromAddress))
 }
 
 export const setDemoMode = (
@@ -106,18 +90,18 @@ export const updatePatientSummary = (
 }
 
 const updateLocalStorage = (formModel: any) => {
-  _.forEach(formModel, (v: any, k: any) => {
-    localStorage.setItem(k, v)
-  })
+    _.forEach(formModel, (v: any, k: any) => {
+        localStorage.setItem(k, v)
+    })
 }
 
 export const updateWeb3Settings = (formModel: any) => (dispatch: any) => {
-  updateLocalStorage(formModel)
-  window.location.href = window.location.href
-  dispatch({
-    type: 'WEB3_SETTINGS_UPDATED',
-    payload: formModel
-  })
+    updateLocalStorage(formModel)
+    window.location.href = window.location.href
+    dispatch({
+        type: 'WEB3_SETTINGS_UPDATED',
+        payload: formModel
+    })
 }
 
 export const updateSelectedContract = (
@@ -137,13 +121,10 @@ export const loadPatientSummaryReadModel = (
     selectedContract: any,
     fromAddress: string
 ) => async (dispatch: any) => {
-
     let eventStore = await EventStoreContract.at(selectedContract)
     let updatedReadModel = await getCachedReadModel(eventStore, fromAddress, patientSummaryReadModel, patientSummaryReducer)
     dispatch(updatePatientSummary(updatedReadModel.model))
-        
 }
-
 
 
 // export const getEventStoresByOwner = (fromAddress: string) => (dispatch: any) => {
