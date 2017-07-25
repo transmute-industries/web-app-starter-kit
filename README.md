@@ -8,22 +8,23 @@ There is a lot of extraneous code, which is meant to be used for reference.
 
 ## Dependencies
 
-- Docker
-- IPFS
+- https://www.docker.com/
+- https://ipfs.io/docs/getting-started/
+
+
+### Run with docker
 
 ```
-$ docker run -i --net=host ipfs/go-ipfs
+$ npm run docker:build
+$ npm run docker:run
 ```
 
-#### make sure to remove node_modules before building docker 
+- http://localhost:3000/web-app-starter-kit
 
-```
-$ rm -rf node_modules/
-$ docker build -t transmute-web-app-starter-kit-docker .
-```
 
+### Run without docker
 ```
-$ git clone 
+$ git clone https://github.com/transmute-industries/web-app-starter-kit.git
 $ cd web-app-starter-kit
 $ npm install
 $ npm run transmute test
