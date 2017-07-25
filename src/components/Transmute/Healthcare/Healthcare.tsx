@@ -1,9 +1,5 @@
 import * as React from 'react';
 
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { MuiThemeProvider, lightBaseTheme } from 'material-ui/styles';
-
-const lightMuiTheme = getMuiTheme(lightBaseTheme);
 
 import './Healthcare.css';
 
@@ -21,24 +17,20 @@ class HealthcareDemo extends React.Component<any, any> {
   render() {
     return (
       <div className='material-demo' >
-        <MuiThemeProvider muiTheme={lightMuiTheme}>
-          <div>
-            <HealthcareAppBar />
-            <Grid fluid style={{ marginTop: '32px' }}>
-              <Row >
-                <Col xs={12} sm={6}>
-                  <SelectEventStoreCard />
-                  <br />
-                  <PatientSummaryCard />
-                   <br />
-                </Col>
-                <Col xs={12} sm={6}>
-                  <PatientEventsTable />
-                </Col>
-              </Row>
-            </Grid>
-          </div>
-        </MuiThemeProvider>
+        <HealthcareAppBar />
+        <Grid fluid style={{ marginTop: '32px' }}>
+          <Row >
+            <Col xs={12} sm={6}>
+              <SelectEventStoreCard />
+              <br />
+              <PatientSummaryCard />
+              <br />
+            </Col>
+            <Col xs={12} sm={6}>
+              <PatientEventsTable />
+            </Col>
+          </Row>
+        </Grid>
       </div>
     );
   }

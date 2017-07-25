@@ -24,30 +24,37 @@ console.log('🦄  Transmute  🦄')
 // let App:any = AppConnected;
 import HomePage from './components/Home/HomePage';
 
-import FactoryPage from './components/Transmute/FactoryPage/FactoryPage';
-import EventStorePage from './components/Transmute/EventStorePage/EventStorePage';
 
 import HealthcareDemo from './components/Transmute/Healthcare/Healthcare';
 
 import Web3Settings from './components/Transmute/Web3/Web3Settings';
 
-import { getAccounts} from './actions/transmute'
+import UPortRegister from './components/Transmute/UPortRegister/UPortRegister';
+
+
+import { getAccounts } from './actions/transmute'
 store.dispatch(getAccounts())
+
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { MuiThemeProvider, lightBaseTheme } from 'material-ui/styles';
+
+const lightMuiTheme = getMuiTheme(lightBaseTheme);
+
 
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <div>
-        <Route exact={true} path="/web-app-starter-kit/" component={HomePage} />
-        <Route path="/web-app-starter-kit/web3" component={Web3Settings} />
+      <MuiThemeProvider muiTheme={lightMuiTheme}>
+        <div>
+          <Route exact={true} path="/web-app-starter-kit/" component={HomePage} />
+          <Route path="/web-app-starter-kit/web3" component={Web3Settings} />
 
-        <Route path="/web-app-starter-kit/healthcare" component={HealthcareDemo} />
+          <Route path="/web-app-starter-kit/healthcare" component={HealthcareDemo} />
+          <Route path="/web-app-starter-kit/uport" component={UPortRegister} />
 
-        <Route path="/web-app-starter-kit/factory" component={FactoryPage} />
-        <Route path="/web-app-starter-kit/eventstore/:contractAddress" component={EventStorePage} />
-
-        {/* <Redirect from='*' to='/web-app-starter-kit/' /> */}
-      </div>
+          {/* <Redirect from='*' to='/web-app-starter-kit/' /> */}
+        </div>
+      </MuiThemeProvider>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root')

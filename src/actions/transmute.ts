@@ -63,13 +63,17 @@ export const writeFSA = (
     event: any
 ) => async (dispatch: any) => {
     let eventStore = await TransmuteFramework.EventStoreContract.at(contractAddress)
-    let data = await TransmuteFramework.EventStore.writeFSA(eventStore, fromAddress, event)
-    console.log('wrote fsa (converted): ', data)
+    let eventOnChain = await TransmuteFramework.EventStore.writeFSA(eventStore, fromAddress, event)
+    console.log('event: ', eventOnChain)
+    dispatch({
+        type: 'TRANSMUTE_EVENTSTORE_EVENT_RECEIEVED',
+        payload: {
+            event: eventOnChain 
+        }
+    })
     dispatch(readAllContractEvents(contractAddress, fromAddress, 0))
     dispatch(loadPatientSummaryReadModel(contractAddress, fromAddress))
 }
-
-
 
 export const updatePatientSummary = (
     readModel: any,
