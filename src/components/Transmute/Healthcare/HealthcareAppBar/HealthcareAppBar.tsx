@@ -19,7 +19,9 @@ class Login extends React.Component {
   static muiName = 'FlatButton';
   render() {
     return (
-      <FlatButton {...this.props} label="Login" />
+      <FlatButton {...this.props} label="Login" onTouchTap={() => {
+      store.dispatch(push('/web-app-starter-kit/uport'))
+    }}  />
     );
   }
 }
@@ -32,9 +34,9 @@ const Logged: any = (props: any) => (
     targetOrigin={{ horizontal: 'right', vertical: 'top' }}
     anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
   >
-    <MenuItem primaryText="Refresh" />
-    <MenuItem primaryText="Help" />
-    <MenuItem primaryText="Sign out" />
+    <MenuItem primaryText="Sign out" onTouchTap={() => {
+      store.dispatch(push('/web-app-starter-kit/uport'))
+    }} />
   </IconMenu>
 );
 
@@ -51,7 +53,7 @@ class HealthcareAppBar extends React.Component<any, any> {
   handleToggle = () => this.setState({ open: !this.state.open });
 
   handleTitleTouch = () => {
- 
+
   }
   render() {
     return (
@@ -76,9 +78,9 @@ class HealthcareAppBar extends React.Component<any, any> {
             labelPosition="right"
             style={{ margin: 20 }}
           />
-    
+
         </Drawer>
-     </div>
+      </div>
     );
   }
 }
