@@ -13,6 +13,12 @@ There is a lot of extraneous code, which is meant to be used for reference.
 
 ```
 $ docker run -i --net=host ipfs/go-ipfs
+```
+
+#### make sure to remove node_modules before building docker 
+
+```
+$ rm -rf node_modules/
 $ docker build -t transmute-web-app-starter-kit-docker .
 ```
 
