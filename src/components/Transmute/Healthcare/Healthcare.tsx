@@ -22,7 +22,7 @@ class HealthcareDemo extends React.Component<any, any> {
     return (
       <div className='material-demo' >
         <MuiThemeProvider muiTheme={lightMuiTheme}>
-          <div >
+          <div>
             <HealthcareAppBar />
             <Grid fluid style={{ marginTop: '32px' }}>
               <Row >
@@ -30,6 +30,7 @@ class HealthcareDemo extends React.Component<any, any> {
                   <SelectEventStoreCard />
                   <br />
                   <PatientSummaryCard />
+                   <br />
                 </Col>
                 <Col xs={12} sm={6}>
                   <PatientEventsTable />

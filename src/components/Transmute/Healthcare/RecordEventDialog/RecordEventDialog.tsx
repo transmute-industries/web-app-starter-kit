@@ -15,6 +15,10 @@ import {
 import SelectSymptoms from '../SelectSymptoms/SelectSymptoms'
 import ReportTemperature from '../ReportTemperature/ReportTemperature'
 
+const getPayload = (state: any) => {
+    return state.dialogTitle === 'New Symptoms' ? state.symptoms : parseFloat(state.temperature)
+}
+
 export class RecordEventDialog extends React.Component<any, any> {
     state = {
         dialogTitle: 'non',
@@ -22,7 +26,7 @@ export class RecordEventDialog extends React.Component<any, any> {
         dialogActions: [],
         open: false,
         symptoms: [],
-        temperature: '98.6'
+        temperature: '98.7'
     }
     handleOpen = () => {
         this.setState({ open: true });
@@ -40,21 +44,38 @@ export class RecordEventDialog extends React.Component<any, any> {
             nextProps.transmute.activeDialog &&
             nextProps.transmute.activeDialog.type
         ) {
-            console.log('parse paylaod here... ', nextProps.transmute.activeDialog)
+            let recordDialogData: any;
 
-            let title: any, payloadType: string;
-            if (nextProps.transmute.activeDialog.type === 'SYMPTOMS') {
-                title = 'New Symptoms'
-                payloadType = 'SYMPTOMS_REPORTED'
-            } else {
-                title = 'New Temperature'
-                payloadType = 'TEMPERATURE_REPORTED'
+            switch (nextProps.transmute.activeDialog.type) {
+                case 'SYMPTOMS': recordDialogData = {
+                    title: 'New Symptoms',
+                    payloadType: 'SYMPTOMS_REPORTED',
+                    el: <SelectSymptoms values={this.state.symptoms}
+                        onChange={(data: any) => {
+                            this.setState({
+                                symptoms: data
+                            })
+                        }} style={{ width: '100%' }} />
+                }; break;
+
+                case 'TEMPERATURE': recordDialogData = {
+                    title: 'New Temperature',
+                    payloadType: 'TEMPERATURE_REPORTED',
+                    el: < ReportTemperature
+                        value={this.state.temperature}
+                        onChange={(data: any) => {
+                            this.setState({
+                                temperature: data
+                            })
+                        }} style={{ width: '100%' }} />
+                }; break;
             }
 
             this.setState({
                 open: true,
-                dialogTitle: title,
-                dialogBody: title === 'New Symptoms' ? <SelectSymptoms parent={this} style={{ width: '100%' }} /> : < ReportTemperature parent={this} style={{ width: '100%' }} />,
+                dialogTitle: recordDialogData.title,
+                dialogBody: recordDialogData.el,
+                dialogPayloadType: recordDialogData.payloadType,
                 dialogActions: [
                     <FlatButton
                         label="Cancel"
@@ -67,10 +88,10 @@ export class RecordEventDialog extends React.Component<any, any> {
                         keyboardFocused={true}
                         onTouchTap={() => {
                             let fsa: any = {
-                                type: payloadType,
+                                type: recordDialogData.payloadType,
                                 payload: {
                                     created: moment().format('LLL'),
-                                    data: title === 'New Symptoms' ? this.state.symptoms : parseFloat(this.state.temperature)
+                                    data: getPayload(this.state)
                                 }
                             }
                             this.props.dispatch(writeFSA(this.props.transmute.selectedContract, this.props.transmute.defaultAddress, fsa))

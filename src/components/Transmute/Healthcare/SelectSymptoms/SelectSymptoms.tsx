@@ -16,14 +16,13 @@ const symptoms = [
 
 export default class SelectFieldExampleMultiSelect extends React.Component<any, any> {
   state = {
-    values: [],
+    values: this.props.values,
   };
 
   handleChange = (event: any, index: any, values: any) => {
-    this.props.parent.setState({
-      symptoms: values
-    })
+
     this.setState({ values });
+    this.props.onChange(values);
   }
 
   menuItems(values: any) {
@@ -41,7 +40,7 @@ export default class SelectFieldExampleMultiSelect extends React.Component<any, 
   render() {
     return (
       <SelectField
-        style={{width: '100%'}}
+        style={{ width: '100%' }}
         multiple={true}
         hintText="Select symptoms"
         value={this.state.values}
