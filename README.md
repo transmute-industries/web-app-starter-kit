@@ -5,6 +5,17 @@
 This project is under construction. 
 There is a lot of extraneous code, which is meant to be used for reference. 
 
+
+## Dependencies
+
+- Docker
+- IPFS
+
+```
+$ docker run -i --net=host ipfs/go-ipfs
+$ docker build -t transmute-web-app-starter-kit-docker .
+```
+
 ```
 $ git clone 
 $ cd web-app-starter-kit
