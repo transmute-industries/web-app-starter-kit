@@ -12,8 +12,8 @@ services:
      - "8080:8080"
      - "5001:5001"
      - "4001:4001"
-    # volumes:
-    #   - ~/.ipfs/:/data/ipfs/
+    volumes:
+      - ~/.ipfs/:/data/ipfs/
     
   dapp:
     build:

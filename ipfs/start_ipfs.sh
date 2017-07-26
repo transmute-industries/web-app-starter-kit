@@ -25,4 +25,4 @@ fi
 # You can modify them later, けど. See
 # https://ipfs.io/docs/commands/#ipfs-log-level
 # env IPFS_LOGGING=info
-exec ipfs daemon
+exec env IPFS_LOGGING=info ipfs daemon
