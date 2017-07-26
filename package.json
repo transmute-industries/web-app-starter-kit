@@ -49,9 +49,8 @@
   },
   "scripts": {
     "clean": "rm -rf build coverage",
-    "docker:build": "docker build -t transmute-web-app-starter-kit-docker .",
+    "docker:build": "docker-compose up --build",
     "docker:start": "truffle migrate && npm run move-contracts && npm run start",
-    "docker-compose": "docker-compose up",
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build && npm run prep-for-github",
     "prep-for-github": "cp build/index.html build/404.html",

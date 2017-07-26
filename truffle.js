@@ -1,7 +1,7 @@
 
 
 
-const HOST = process.env.RPC_HOST || 'localhost';
+const HOST = process.env.RPC_HOST || 'testrpc';
 const PORT = process.env.RPC_PORT || 8545;
 
 
